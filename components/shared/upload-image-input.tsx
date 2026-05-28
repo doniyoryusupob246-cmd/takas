@@ -84,18 +84,18 @@ export const UploadImageInput: React.FC<Props> = ({ onValueChange, value }) => {
     <div className="space-y-4 mt-[40px]">
       <div>
         <p className="mb-2"> Fotoğraf ekle (max. 5)</p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <Label
             htmlFor="uploadImage"
-            className="w-[250px] h-[250px] border border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:bg-secondary/20 rounded-2xl transition">
+            className="w-full max-w-[250px] h-[250px] border border-dashed border-gray-400 flex items-center justify-center cursor-pointer hover:bg-secondary/20 rounded-2xl transition">
             <FilePlusCorner />
           </Label>
           {images.length < 1 && (
             <>
-              <div className="w-[250px] h-[250px] border border-dashed bg-gray-50 flex items-center justify-center rounded-2xl transition">
+              <div className="w-full max-w-[250px] h-[250px] border border-dashed bg-gray-50 flex items-center justify-center rounded-2xl transition">
                 <ImageIcon className="text-gray-300" />
               </div>
-              <div className="w-[250px] h-[250px] border border-dashed bg-gray-50 flex items-center justify-center  rounded-2xl transition">
+              <div className="w-full max-w-[250px] h-[250px] border border-dashed bg-gray-50 flex items-center justify-center  rounded-2xl transition">
                 <ImageIcon className="text-gray-300" />
               </div>
             </>
@@ -121,7 +121,7 @@ export const UploadImageInput: React.FC<Props> = ({ onValueChange, value }) => {
             <SortableContext
               items={images.map((img) => img.file.name)}
               strategy={rectSortingStrategy}>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {images.map((img) => (
                   <SortTableImageCard
                     key={img.file.name}

@@ -64,11 +64,11 @@ export default function SettingsPage() {
   return (
     <div className="mb-[100px]">
       <Container>
-        <h2 className="text-[30px] font-bold text-black mt-[50px]">Profile Ayarları</h2>
-        <div className="bg-[#f9f9f9] mt-[40px] p-5 rounded-2xl shadow-sm">
-          <h2 className="text-black text-[20px] font-bold mb-2">Genel Bilgiler</h2>
+        <h2 className="text-[26px] sm:text-[30px] font-bold text-black mt-6 sm:mt-[50px]">Profile Ayarları</h2>
+        <div className="bg-[#f9f9f9] mt-[30px] sm:mt-[40px] p-4 sm:p-6 rounded-2xl shadow-sm">
+          <h2 className="text-black text-[18px] sm:text-[20px] font-bold mb-2">Genel Bilgiler</h2>
           <hr />
-          <div className="flex items-center gap-10 mt-[20px]">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-[20px] text-center sm:text-left">
             <Image
               src={'https://github.com/shadcn.png'}
               alt="Image User"
@@ -79,32 +79,32 @@ export default function SettingsPage() {
             <div>
               <div>
                 <h2 className="text-black font-bold">Profil Fotoğrafı</h2>
-                <p className="text-gray-400 mb-[10px]">En az 400x400px boyutunda JPG ve PNG</p>
+                <p className="text-gray-400 mb-[10px] text-sm">En az 400x400px boyutunda JPG ve PNG</p>
               </div>
-              <Link className="" href={'/'}>
+              <Link className="text-secondary font-medium hover:underline" href={'/'}>
                 Değiştir
               </Link>
             </div>
           </div>
-          <div className="mt-[50px]">
-            <form className="w-[500px]" onSubmit={handleSubmit(onSubmit)}>
-              <FieldGroup className="flex flex-row gap-4">
+          <div className="mt-[30px] sm:mt-[50px]">
+            <form className="w-full max-w-[500px]" onSubmit={handleSubmit(onSubmit)}>
+              <FieldGroup className="flex flex-col sm:flex-row gap-4">
                 <Field>
                   <FieldLabel htmlFor="fullName">Ad Soyad</FieldLabel>
                   <Input {...register('fullName')} />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="fullName">Email</FieldLabel>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
                   <Input {...register('email')} />
                 </Field>
               </FieldGroup>
-              <FieldGroup className="mt-2">
+              <FieldGroup className="mt-4">
                 <Field>
-                  <FieldLabel htmlFor="fullName">Bölüm</FieldLabel>
+                  <FieldLabel htmlFor="campus">Bölüm</FieldLabel>
                   <Input {...register('campus')} />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="fullName">Hakkımda</FieldLabel>
+                  <FieldLabel htmlFor="bio">Hakkımda</FieldLabel>
                   <Textarea {...register('bio')} />
                 </Field>
               </FieldGroup>
@@ -112,12 +112,12 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="bg-[#f9f9f9] mt-[40px] p-5 rounded-2xl shadow-sm mt-[40px]">
-          <h2 className="text-black text-[20px] font-bold mb-2">Güvenlik</h2>
+        <div className="bg-[#f9f9f9] mt-[30px] sm:mt-[40px] p-4 sm:p-6 rounded-2xl shadow-sm">
+          <h2 className="text-black text-[18px] sm:text-[20px] font-bold mb-2">Güvenlik</h2>
           <hr />
 
-          <div className="mt-[50px]">
-            <form className="w-[500px]">
+          <div className="mt-[30px] sm:mt-[50px]">
+            <form className="w-full max-w-[500px]">
               <FieldGroup className="mt-2">
                 <Field>
                   <FieldLabel htmlFor="password">Mevcut Şifre</FieldLabel>
@@ -132,11 +132,11 @@ export default function SettingsPage() {
                   <Input />
                 </Field>
               </FieldGroup>
-              <div className="flex gap-4 mt-[20px]">
-                <Button className="py-[22px] px-[40px] hover:bg-secondary transform hover:text-white cursor-pointer border-secondary bg-transparent text-secondary rounded-full ">
+              <div className="flex flex-col sm:flex-row gap-4 mt-[20px]">
+                <Button className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto hover:bg-secondary transform hover:text-white cursor-pointer border-secondary bg-transparent text-secondary rounded-full ">
                   Iptal
                 </Button>
-                <Button className="py-[22px] px-[40px] bg-foreground transform  cursor-pointer ary  rounded-full ">
+                <Button className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto bg-foreground transform cursor-pointer rounded-full text-white">
                   Değişiklikleri Kaydet
                 </Button>
               </div>

@@ -158,7 +158,7 @@ export default function NewProduct() {
                 <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>
               )}
             </Field>
-            <div className="flex gap-3 mt-[30px]">
+            <div className="flex flex-col sm:flex-row gap-3 mt-[30px]">
               <Field>
                 <Label className="text-gray-500 uppercase text-[14px]">Kategori</Label>
                 <Controller

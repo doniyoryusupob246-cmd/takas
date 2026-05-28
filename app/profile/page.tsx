@@ -67,74 +67,74 @@ export default function ProfilePage() {
   return (
     <div className="mb-[100px]">
       <Container className="max-w-[1140px]">
-        <div className="flex items-center justify-around">
-          <div className="mt-[40px]">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-8 md:gap-10">
+          <div className="mt-6 md:mt-[40px] flex justify-center w-full md:w-auto">
             <Image
-              className="rounded-2xl border"
+              className="rounded-2xl border w-full max-w-[280px] sm:max-w-[320px] h-auto object-cover"
               src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&w=740&q=80"
               width={320}
               height={320}
               alt="Profile"
             />
           </div>
-          <div>
-            <div className="flex gap-2">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left mt-6 md:mt-[40px] max-w-[500px]">
+            <div className="flex gap-2 justify-center md:justify-start">
               <Badge className="text-white uppercase" variant={'secondary'}>
                 Mühendislik Fakültesi
               </Badge>
               <Badge>Aktif Üye</Badge>
             </div>
-            <h2 className="text-black text-[34px] font-bold">{userData?.fullName}</h2>
-            <p className="text-[15px] text-gray-500 w-[450px]">
+            <h2 className="text-black text-[30px] md:text-[34px] font-bold mt-2">{userData?.fullName}</h2>
+            <p className="text-[15px] text-gray-500 w-full max-w-[450px] mt-2">
               İstanbul Teknik Üniversitesi 3. sınıf öğrencisiyim. Artık ihtiyacım olmayan akademik
               kaynakları ve teknolojik aksesuarları paylaşıyorum.
             </p>
-            <div className="flex gap-3 items-center mt-[10px]">
-              <Link className="text flex items-center gap-3" href={'/'}>
-                <Mail size={20} />
-                <p>{userData?.email}</p>
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start items-center mt-[15px] text-sm">
+              <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
+                <Mail size={18} />
+                <span>{userData?.email}</span>
               </Link>
-              <Link className="text flex items-center gap-3" href={'/'}>
-                <Phone size={20} />
-                <p>+90 555 555 55 55</p>
+              <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
+                <Phone size={18} />
+                <span>+90 555 555 55 55</span>
               </Link>
-              <Link className="text flex items-center gap-3" href={'/'}>
-                <MapPin size={20} />
-                <p>Bilecil/Merkez</p>
+              <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
+                <MapPin size={18} />
+                <span>Bilecil/Merkez</span>
               </Link>
             </div>
-            <Link href={'/settings'} className="mt-[15px] block cursor-pointer">
+            <Link href={'/settings'} className="mt-[20px] block cursor-pointer">
               <Button className="bg-secondary flex items-center gap-3 cursor-pointer">
-                <UserPen />
+                <UserPen size={18} />
                 Profile düzenle
               </Button>
             </Link>
           </div>
         </div>
 
-        <div className="flex justify-between mt-[30px]">
-          <div className="w-[200px] h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-[40px]">
+          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">{products.length}</h2>
-              <p className="text-[#515151] uppercase text-[14px]">İlan Sayısı</p>
+              <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">İlan Sayısı</p>
             </div>
           </div>
-          <div className="w-[200px] h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1]">
+          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">4.9</h2>
-              <p className="text-[#515151] uppercase text-[14px]">başarılı takas</p>
+              <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">başarılı takas</p>
             </div>
           </div>
-          <div className="w-[200px] h-25 rounded-xl flex items-center justify-center bg-[#f4f2f1]">
+          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">2y+</h2>
-              <p className="text-[#515151] uppercase text-[14px]">Üyelik Süresi</p>
+              <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">Üyelik Süresi</p>
             </div>
           </div>
-          <div className="w-[200px] h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1]">
+          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">8</h2>
-              <p className="text-[#515151] uppercase text-[14px]">İlan Sayısı</p>
+              <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">İlan Sayısı</p>
             </div>
           </div>
         </div>
