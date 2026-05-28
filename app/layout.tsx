@@ -4,7 +4,7 @@ import './globals.css';
 import { Footer } from '@/components/shared/footer';
 import { Nav } from '@/components/shared/nav';
 import { Toaster } from 'react-hot-toast';
-
+import NextTopLoader from 'nextjs-toploader';
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta-sans',
   subsets: ['latin'],
@@ -23,6 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <NextTopLoader
+          color="#15803d"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #000000,0 0 5px #000000"
+        />
         <Nav />
         {children}
         <Footer />

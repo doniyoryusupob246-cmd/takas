@@ -44,8 +44,8 @@ const formSchema = z.object({
 type Form = z.infer<typeof formSchema>;
 export type ProductFormValues = z.infer<typeof formSchema>;
 export default function NewProduct() {
-
   const [categories, setCategories] = React.useState([]);
+  const router = useRouter();
   React.useEffect(() => {
     const fetchCategories = async () => {
       const res = await axios.get(
@@ -116,7 +116,7 @@ export default function NewProduct() {
 
       toast.success('Ürün başarıyla oluşturuldu!');
       console.log('Данные формы:', data);
-      // router.push('/profile');
+      router.push('/profile');
     } catch (error: any) {
       console.error('Ошибка создания:', error);
       const errorMessage = error.response?.data?.message || 'Ürün yüklenirken bir hata oluştu.';
