@@ -40,7 +40,7 @@ const navlink = [
 
 export const Footer: React.FC<Props> = ({ className }) => {
   return (
-    <div className={cn('py-8 bg-foreground px-4', className)}>
+    <div className={cn('py-8 bg-foreground px-4 mt-10', className)}>
       <Container>
         <div className="flex flex-col md:flex-row md:justify-around gap-10 md:gap-0">
           {/* Logo + description */}

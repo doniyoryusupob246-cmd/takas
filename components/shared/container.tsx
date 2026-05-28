@@ -3,7 +3,7 @@ import React from 'react';
 
 interface Props {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Container: React.FC<Props> = ({ className, children }) => {

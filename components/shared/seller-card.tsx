@@ -1,17 +1,21 @@
 // components/SellerCard.tsx
 import { Star } from 'lucide-react';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import { getInitials } from '@/lib/getInitials';
+interface Props {
+  ownerName: string;
+  campus: string;
+}
 
-export default function SellerCard() {
+export default function SellerCard({ campus, ownerName }: Props) {
   return (
     <div className="border-t border-gray-100 pt-6 mt-6">
       <div className="flex items-center gap-4 mb-6">
-        <img 
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" 
-          alt="Can Yılmaz" 
-          className="w-12 h-12 rounded-full object-cover border border-gray-200"
-        />
+        <Avatar className="w-[40px] h-[40px]">
+          <AvatarFallback>{getInitials(ownerName)}</AvatarFallback>
+        </Avatar>
         <div>
-          <h4 className="font-semibold text-gray-900">Can Yılmaz</h4>
+          <h4 className="font-semibold text-gray-900">{ownerName}</h4>
           <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
             <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
             <span className="font-medium text-gray-700">4.8</span>
@@ -27,7 +31,7 @@ export default function SellerCard() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-gray-500">Kampüs</span>
-          <span className="font-medium text-gray-900">ODTÜ Ankara</span>
+          <span className="font-medium text-gray-900">{campus}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-gray-500">Üyelik</span>

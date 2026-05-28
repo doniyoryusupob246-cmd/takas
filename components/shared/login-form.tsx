@@ -9,6 +9,12 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { useAuthStore } from '@/store/useAuthStore';
+
 interface Props {
   className?: string;
 }
@@ -26,6 +32,8 @@ const formSchema = z.object({
 
 export const LoginForm: React.FC<Props> = ({ className }) => {
   const [hiddenPass, setHiddenPass] = React.useState(false);
+  const { login } = useAuthStore();
+  const route = useRouter();
   const {
     handleSubmit,
     register,
@@ -37,8 +45,33 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       password: '',
     },
   });
-  const onSubmit = (data: Form) => {
-    console.log(data);
+  const onSubmit = async (data: Form) => {
+    try {
+      const formData = {
+        email: data.email,
+        password: data.password,
+      };
+      const response = await axios.post(
+        'https://kampustakas-backend-production.up.railway.app/api/auth/login',
+        formData,
+      );
+      const token = response.data.data.token;
+      const userData = response.data.data.user;
+      login(userData, token);
+
+      toast.success(response.data.message);
+      console.log('Успешный ответ сервера:', response.data);
+      route.push('/profile');
+      route.refresh();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+        toast.error(errorMessage);
+      } else {
+        toast.error('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    }
   };
 
   return (

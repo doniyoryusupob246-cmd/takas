@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/shared/footer';
 import { Nav } from '@/components/shared/nav';
+import { Toaster } from 'react-hot-toast';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta-sans',
@@ -25,6 +26,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
+        <Toaster />
       </body>
     </html>
   );
