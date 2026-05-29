@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'caqex6rwohoivkg0.public.blob.vercel-storage.com',
+        pathname: '**', // Разрешаем все картинки с этого домена
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos/id/200/800/600',
+        pathname: '**', // Разрешаем все картинки с этого домена
+      },
+      {
+        protocol: 'https',
         hostname: 'img.freepik.com',
         pathname: '**',
       },

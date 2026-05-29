@@ -8,7 +8,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeClosed, Info, Lock, Mail, User } from 'lucide-react';
+import { Eye, EyeClosed, Info, Loader, Lock, Mail, User } from 'lucide-react';
 import Link from 'next/link';
 import { Label } from '../ui/label';
 import { Checkbox } from '../ui/checkbox';
@@ -45,6 +45,7 @@ const formSchema = z
 
 export const RegisterForm: React.FC<Props> = ({ className }) => {
   const [isPassword, setIsPassword] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const route = useRouter();
   const {
     register,
@@ -64,6 +65,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
 
   const onSubmit = async (data: Form) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         'https://kampustakas-backend-production.up.railway.app/api/auth/register',
         data,
@@ -89,6 +91,8 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
       } else {
         alert('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -208,7 +212,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
 
                   <Input
                     placeholder="Şifre Tekrar"
-                    className="h-11.25 pl-10 w-full"
+                    className="h-[45px] pl-10 w-full"
                     {...register('confirmPassword')}
                     name="confirmPassword"
                     type={isPassword ? 'text' : 'password'}
@@ -256,9 +260,10 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
             </FieldGroup>
 
             <Button
-              className="w-full sm:w-45 block mx-auto mt-5 bg-foreground cursor-pointer h-11.25"
+              disabled={isLoading}
+              className="gap-2 w-full sm:w-[180px] block mx-auto mt-5 bg-foreground cursor-pointer h-[45px]"
               type="submit">
-              Kayit ol
+              {isLoading ? 'Kayıt olunuyor...' : 'Kayıt Ol'}
             </Button>
 
             <p className="text-black text-[13px] sm:text-[14px] mt-5 text-center">

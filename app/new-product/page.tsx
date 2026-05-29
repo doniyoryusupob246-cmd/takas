@@ -159,7 +159,7 @@ export default function NewProduct() {
               )}
             </Field>
             <div className="flex flex-col sm:flex-row gap-3 mt-[30px]">
-              <Field>
+              <Field className="flex-1">
                 <Label className="text-gray-500 uppercase text-[14px]">Kategori</Label>
                 <Controller
                   name="category"
@@ -178,7 +178,7 @@ export default function NewProduct() {
                   <span className="text-red-500 text-xs mt-1">{errors.category.message}</span>
                 )}
               </Field>
-              <Field>
+              <Field className="flex-1">
                 <Label className="text-gray-500 uppercase text-[14px]">Durum</Label>
                 <Controller
                   control={control}
@@ -212,19 +212,19 @@ export default function NewProduct() {
               )}
             </Field>
             <Field>
-              <Label className="text-gray-500 uppercase text-[14px]">Ürün adı</Label>
+              <Label className="text-gray-500 uppercase text-[14px]">Kampüs</Label>
               <Input
                 {...register('campus')}
                 name="campus"
                 className="h-[45px]"
-                placeholder="Örn: Python programlama kitabı"
+                placeholder="Örn: Göztepe Kampüsü"
               />
               {errors.campus && (
                 <span className="text-red-500 text-xs mt-1">{errors.campus.message}</span>
               )}
             </Field>
             <Field className="mt-[20px]">
-              <Label className="text-gray-500 uppercase text-[14px]">Durum</Label>
+              <Label className="text-gray-500 uppercase text-[14px]">Açıklama</Label>
               <Textarea
                 {...register('description')}
                 name="description"

@@ -15,7 +15,7 @@ interface Props {
   className?: string;
 }
 
-const links = ['Ana Sayfa', 'Kategoriler', 'Nasıl Çalışır'];
+const links = ['Ana Sayfa', 'Hakkımızda', 'Nasıl Çalışır'];
 
 export const Nav: React.FC<Props> = ({ className }) => {
   const { user, checkAuth, isAuthenticated, logOut } = useAuthStore();
@@ -43,17 +43,22 @@ export const Nav: React.FC<Props> = ({ className }) => {
   };
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
   return (
-    <div className={cn('relative h-[60px] flex items-center shadow-lg bg-white w-full z-50', className)}>
+    <div
+      className={cn(
+        'relative h-[60px] flex items-center shadow-lg bg-white w-full z-50',
+        className,
+      )}>
       <Container>
         <div className="flex items-center justify-between">
           <Link href={'/'}>
             <Image src="/logo.png" width={80} height={80} alt="Logo" className="w-[70px] h-auto" />
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-5">
             {links.map((link) => (
@@ -65,7 +70,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
               </Link>
             ))}
           </nav>
-          
+
           <div className="flex gap-3 items-center">
             {/* Desktop Auth Section */}
             <div className="hidden md:flex gap-3 items-center">
@@ -109,8 +114,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 text-[#71717A] hover:text-secondary focus:outline-none cursor-pointer"
-                aria-label="Toggle menu"
-              >
+                aria-label="Toggle menu">
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
@@ -151,4 +155,3 @@ export const Nav: React.FC<Props> = ({ className }) => {
     </div>
   );
 };
-

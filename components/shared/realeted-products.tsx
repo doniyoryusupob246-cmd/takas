@@ -77,7 +77,7 @@ export default async function RelatedProducts({ categoryId, currentProductId }: 
             product.images?.[0]?.imageUrl ||
             'https://via.placeholder.com/600';
           return (
-            <Link href={`${product.id}`} key={product.id}>
+            <Link href={`/products/${product.id}`} key={product.id}>
               <div className="bg-white rounded-[1.5rem] overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow p-3 flex flex-col h-full cursor-pointer">
                 <div className="bg-gray-100 rounded-xl h-52 mb-5 overflow-hidden">
                   <img

@@ -7,7 +7,8 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute =
     pathname.startsWith('/profile') ||
     pathname.startsWith('/new-product') ||
-    pathname.startsWith('/settings');
+    pathname.startsWith('/settings') ||
+    pathname.startsWith('/offers');
   const isAuthRole = pathname === '/login' || pathname === '/register';
 
   if (isProtectedRoute && !token) {
@@ -24,5 +25,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/new-product/:path*', '/login', '/register', '/settings'],
+  matcher: [
+    '/profile/:path*',
+    '/new-product/:path*',
+    '/login',
+    '/register',
+    '/settings',
+    '/offers',
+    '/offers/:path*',
+  ],
 };

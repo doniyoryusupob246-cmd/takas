@@ -9,7 +9,15 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { BadgeCheckIcon, BellIcon, CreditCardIcon, LogOutIcon, Settings, User } from 'lucide-react';
+import {
+  BadgeCheckIcon,
+  BellIcon,
+  CreditCardIcon,
+  Handshake,
+  LogOutIcon,
+  Settings,
+  User,
+} from 'lucide-react';
 import Link from 'next/link';
 import { getInitials } from '@/lib/getInitials';
 
@@ -44,10 +52,10 @@ export const MenuAvatar: React.FC<Props> = ({ username, handleLogOut, className 
               Ayarlar
             </DropdownMenuItem>
           </Link>
-          <Link href={''}>
+          <Link href={'/offers'}>
             <DropdownMenuItem className="text-black">
-              <BellIcon />
-              Notifications
+              <Handshake />
+              Teklifkerim
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>

@@ -89,11 +89,11 @@ export default function SettingsPage() {
           <div className="mt-[30px] sm:mt-[50px]">
             <form className="w-full max-w-[500px]" onSubmit={handleSubmit(onSubmit)}>
               <FieldGroup className="flex flex-col sm:flex-row gap-4">
-                <Field>
+                <Field className="flex-1">
                   <FieldLabel htmlFor="fullName">Ad Soyad</FieldLabel>
                   <Input {...register('fullName')} />
                 </Field>
-                <Field>
+                <Field className="flex-1">
                   <FieldLabel htmlFor="email">Email</FieldLabel>
                   <Input {...register('email')} />
                 </Field>

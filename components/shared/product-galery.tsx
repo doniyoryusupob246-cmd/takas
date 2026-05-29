@@ -8,6 +8,25 @@ interface Props {
 export default function ProductGallery({ images, condition }: Props) {
   // Высчитываем, сколько картинок осталось "за кадром" (если их больше 3)
   const remainingCount = images?.length > 3 ? images.length - 3 : 0;
+  const hasMoreImages = images?.length > 1;
+
+  if (!hasMoreImages) {
+    return (
+      <div className="bg-white rounded-[1.5rem] p-8 flex items-center justify-center relative shadow-sm border border-gray-100 min-h-[300px] md:h-[540px]">
+        <div className="absolute top-5 left-5 bg-green-800 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full tracking-wide z-10">
+          {condition}
+        </div>
+
+        {images?.[0] && (
+          <img
+            src={images[0].imageUrl}
+            alt="Ana Görsel"
+            className="w-full h-full object-contain drop-shadow-xl"
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-8 gap-4 lg:gap-6 md:h-[540px]">

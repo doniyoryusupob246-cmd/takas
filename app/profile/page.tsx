@@ -140,11 +140,11 @@ export default function ProfilePage() {
         </div>
         <h2 className="text-[27px] text-black font-bold mt-[50px] mb-[30px]">Paylaşılan Ürünler</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link href={'/new-product'}>
-            <div className="hover:bg-[#fff] cursor-pointer transition-all flex items-center justify-center shrink-0 h-94 bg-[#ebebeb] border-2 rounded-2xl">
+          <Link href={'/new-product'} className="h-full flex">
+            <div className="hover:bg-white hover:border-green-600 hover:shadow-md cursor-pointer transition-all flex items-center justify-center w-full min-h-[350px] md:h-full bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-5 flex-grow">
               <div className="flex flex-col items-center text-center">
-                <Plus size={30} />
-                <p className="text-center text-[14px] text-[#898989]">Yeni ürün ekle</p>
+                <Plus size={30} className="text-gray-400" />
+                <p className="text-center text-sm font-semibold text-gray-500 mt-2">Yeni ürün ekle</p>
               </div>
             </div>
           </Link>

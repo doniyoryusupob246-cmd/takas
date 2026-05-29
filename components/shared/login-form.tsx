@@ -32,6 +32,7 @@ const formSchema = z.object({
 
 export const LoginForm: React.FC<Props> = ({ className }) => {
   const [hiddenPass, setHiddenPass] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const { login } = useAuthStore();
   const route = useRouter();
   const {
@@ -47,6 +48,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
   });
   const onSubmit = async (data: Form) => {
     try {
+      setIsLoading(true);
       const formData = {
         email: data.email,
         password: data.password,
@@ -71,6 +73,8 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       } else {
         toast.error('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -157,9 +161,10 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
           </FieldGroup>
 
           <Button
+            disabled={isLoading}
             className="mx-auto block cursor-pointer hover:bg-foreground/70 bg-foreground text-white w-full sm:w-[150px] h-[42px] sm:h-[40px] rounded-sm mt-5"
             type="submit">
-            Giriş Yap
+            {isLoading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
           </Button>
 
           <p className="text-[13px] sm:text-[14px] text-gray-500 mt-3 text-center">

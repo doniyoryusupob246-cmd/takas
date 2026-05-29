@@ -64,6 +64,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="lg:col-span-4">
               <div className="sticky top-8">
                 <ProductInfoPanel
+                  productId={product.id}
                   campus={product.campus}
                   ownerName={product.ownerName}
                   price={product.estimatedMaxPrice}

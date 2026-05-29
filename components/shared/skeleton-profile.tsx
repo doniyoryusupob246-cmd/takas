@@ -10,41 +10,37 @@ export const SkeletonProfile: React.FC<Props> = ({ className }) => {
   return (
     <div className="mb-[100px]">
       <Container className="max-w-[1140px]">
-        <div className="flex items-center justify-around">
-          <div className="mt-[40px]">
-            <Skeleton className="w-[320px] h-[320px] rounded-2xl border" />
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-8 md:gap-10">
+          <div className="mt-6 md:mt-[40px] flex justify-center w-full md:w-auto">
+            <Skeleton className="w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] rounded-2xl border" />
           </div>
-          <div>
+          <div className="flex flex-col items-center md:items-start mt-6 md:mt-[40px] w-full max-w-[500px]">
             <div className="flex gap-2">
               <Skeleton className="w-[100px] h-[18px] rounded-full" />
               <Skeleton className="w-[60px] h-[18px] rounded-full" />
             </div>
-            <Skeleton className="w-[250px] h-[40px] rounded-sm mt-[10px]" />
+            <Skeleton className="w-[250px] h-[40px] rounded-sm mt-3" />
 
-            <div className="mt-[20px]">
-              <Skeleton className="text-[15px] text-gray-500 w-[450px] h-[20px] mt-[5px]" />
-              <Skeleton className="text-[15px] text-gray-500 w-[450px] h-[20px] mt-[5px]" />
-              <Skeleton className="text-[15px] text-gray-500 w-[450px] h-[20px] mt-[5px]" />
-              <Skeleton className="text-[15px] text-gray-500 w-[450px] h-[20px] mt-[5px]" />
-              <Skeleton className="text-[15px] text-gray-500 w-[450px] h-[20px] mt-[5px]" />
+            <div className="mt-4 w-full flex flex-col items-center md:items-start gap-2">
+              <Skeleton className="w-full max-w-[450px] h-[20px]" />
+              <Skeleton className="w-full max-w-[450px] h-[20px]" />
+              <Skeleton className="w-full max-w-[450px] h-[20px]" />
             </div>
 
-            <div className="flex gap-3 items-center mt-[30px]">
-              <Skeleton className="w-[150px] h-[30px] text flex items-center gap-3" />
-              <Skeleton className="w-[150px] h-[30px] text flex items-center gap-3" />
-              <Skeleton className="w-[150px] h-[30px] text flex items-center gap-3" />
+            <div className="flex flex-wrap justify-center md:justify-start gap-4 items-center mt-5 w-full">
+              <Skeleton className="w-[120px] h-[20px]" />
+              <Skeleton className="w-[120px] h-[20px]" />
+              <Skeleton className="w-[120px] h-[20px]" />
             </div>
+            <Skeleton className="w-[160px] h-[40px] rounded-md mt-5" />
           </div>
         </div>
 
-        <div className="flex justify-between mt-[30px]">
-          <Skeleton className="w-[200px] h-[100px] rounded-xl" />
-
-          <Skeleton className="w-[200px] h-[100px] rounded-xl" />
-
-          <Skeleton className="w-[200px] h-[100px] rounded-xl" />
-
-          <Skeleton className="w-[200px] h-[100px] rounded-xl" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-[40px]">
+          <Skeleton className="h-[100px] rounded-xl w-full" />
+          <Skeleton className="h-[100px] rounded-xl w-full" />
+          <Skeleton className="h-[100px] rounded-xl w-full" />
+          <Skeleton className="h-[100px] rounded-xl w-full" />
         </div>
       </Container>
     </div>
