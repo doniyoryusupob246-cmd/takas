@@ -7,7 +7,7 @@ export default function ProductCard({ images, condition, categoryName, title, id
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col">
       <div className="relative h-56 w-full bg-gray-100 shrink-0">
-        <img src={images[0].imageUrl} alt={title} className="w-full h-full object-cover" />
+        <img src={images?.[0]?.imageUrl || '/placeholder.png'} alt={title} className="w-full h-full object-cover" />
         <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm text-gray-700 px-3 py-1.5 text-[10px] font-bold rounded-full shadow-sm tracking-wide">
           {condition}
         </div>

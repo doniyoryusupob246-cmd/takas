@@ -1,14 +1,26 @@
-// components/ProductInfoPanel.tsx
-import { MessageSquare, ShieldCheck, ArrowRightLeft } from 'lucide-react';
+'use client';
+import { MessageSquare, ShieldCheck, ArrowRightLeft, UserPen } from 'lucide-react';
 import SellerCard from './seller-card';
 import Link from 'next/link';
+import { useAuthStore } from '@/store/useAuthStore';
+import React from 'react';
+
 interface Props {
   productId: number;
   price: number;
   ownerName: string;
   campus: string;
+  ownerId?: number;
 }
-export default function ProductInfoPanel({ productId, campus, price, ownerName }: Props) {
+
+export default function ProductInfoPanel({ productId, campus, price, ownerName, ownerId }: Props) {
+  const { user, isAuthenticated } = useAuthStore();
+
+  const isOwnProduct = isAuthenticated && user && (
+    (ownerId && user.id === ownerId) ||
+    (user.fullName === ownerName)
+  );
+
   return (
     <div className="flex flex-col gap-6 h-full">
       {/* Main Info Card */}
@@ -21,16 +33,30 @@ export default function ProductInfoPanel({ productId, campus, price, ownerName }
         </div>
 
         <div className="space-y-3">
-          <Link href={`/offers/${productId}`} className="w-full block">
-            <button className="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2.5 cursor-pointer">
-              <ArrowRightLeft className="w-5 h-5" />
-              Takas Teklifi Gönder
-            </button>
-          </Link>
-          <button className="w-full bg-white hover:bg-gray-50 text-green-700 font-medium py-3.5 rounded-xl transition-colors border-2 border-green-700/20 flex items-center justify-center gap-2.5">
-            <MessageSquare className="w-5 h-5" />
-            Mesaj Gönder
-          </button>
+          {isOwnProduct ? (
+            <div className="p-4 bg-gray-50 border rounded-xl text-center">
+              <p className="text-sm font-medium text-gray-500 mb-3">Bu sizin ilanınızdır.</p>
+              <Link href="/settings" className="w-full block">
+                <button className="w-full bg-secondary hover:bg-secondary/80 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm">
+                  <UserPen className="w-4 h-4" />
+                  Profil Ayarları
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <>
+              <Link href={`/offers/${productId}`} className="w-full block">
+                <button className="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2.5 cursor-pointer">
+                  <ArrowRightLeft className="w-5 h-5" />
+                  Takas Teklifi Gönder
+                </button>
+              </Link>
+              <button className="w-full bg-white hover:bg-gray-50 text-green-700 font-medium py-3.5 rounded-xl transition-colors border-2 border-green-700/20 flex items-center justify-center gap-2.5">
+                <MessageSquare className="w-5 h-5" />
+                Mesaj Gönder
+              </button>
+            </>
+          )}
         </div>
 
         <SellerCard campus={campus} ownerName={ownerName} />

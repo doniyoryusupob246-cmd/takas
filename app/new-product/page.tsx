@@ -6,9 +6,10 @@ import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Upload } from 'lucide-react';
+import { Upload, Loader2 } from 'lucide-react';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
@@ -45,6 +46,7 @@ type Form = z.infer<typeof formSchema>;
 export type ProductFormValues = z.infer<typeof formSchema>;
 export default function NewProduct() {
   const [categories, setCategories] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
   React.useEffect(() => {
     const fetchCategories = async () => {
@@ -77,22 +79,23 @@ export default function NewProduct() {
   });
 
   const onSubmit = async (data: Form) => {
-    console.log(data);
-    const token = Cookies.get('token');
-    const uploadImages = [];
-    for (const img of data.media.images) {
-      const fileFormData = new FormData();
-      fileFormData.append('file', img.file);
-
-      const uploadRes = await axios.post('/api/upload', fileFormData);
-      const realImageUrl = uploadRes.data.url;
-
-      uploadImages.push({
-        imageUrl: realImageUrl,
-        isMain: img.isMain,
-      });
-    }
+    setIsLoading(true);
     try {
+      console.log(data);
+      const token = Cookies.get('token');
+      const uploadImages = [];
+      for (const img of data.media.images) {
+        const fileFormData = new FormData();
+        fileFormData.append('file', img.file);
+
+        const uploadRes = await axios.post('/api/upload', fileFormData);
+        const realImageUrl = uploadRes.data.url;
+
+        uploadImages.push({
+          imageUrl: realImageUrl,
+          isMain: img.isMain,
+        });
+      }
       const formData = {
         categoryId: Number(data.category),
         title: data.name,
@@ -120,7 +123,9 @@ export default function NewProduct() {
     } catch (error: any) {
       console.error('Ошибка создания:', error);
       const errorMessage = error.response?.data?.message || 'Ürün yüklenirken bir hata oluştu.';
-      alert(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -236,10 +241,17 @@ export default function NewProduct() {
               )}
             </Field>
           </div>
-          <button className="mt-10 mx-auto hover:bg-secondary/70 flex items-center justify-center cursor-pointer gap-2 bg-secondary text-white w-[200px] h-[40px] rounded-xl">
-            <Upload />
-            Yayınla
-          </button>
+          <Button
+            disabled={isLoading}
+            className="mt-10 mx-auto hover:bg-secondary/70 flex items-center justify-center cursor-pointer gap-2 bg-secondary text-white w-[200px] h-[40px] rounded-xl"
+            type="submit">
+            {isLoading ? (
+              <Loader2 className="animate-spin mr-2" size={18} />
+            ) : (
+              <Upload size={18} />
+            )}
+            {isLoading ? 'Yayınlanıyor...' : 'Yayınla'}
+          </Button>
         </form>
       </div>
     </Container>

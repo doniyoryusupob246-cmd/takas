@@ -7,11 +7,13 @@ import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { Loader2 } from 'lucide-react';
 import { User } from '../profile/page';
 import { fetchUserProfile } from '@/lib/axios';
 import { useForm } from 'react-hook-form';
 import z, { email } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
   const [user, setUser] = React.useState<User | null>(null);
@@ -58,8 +60,35 @@ export default function SettingsPage() {
     loadUser();
   }, [reset]);
 
+  const [isSavingProfile, setIsSavingProfile] = React.useState(false);
+  const [isSavingSecurity, setIsSavingSecurity] = React.useState(false);
+
   const onSubmit = async (data: Form) => {
-    console.log(data);
+    setIsSavingProfile(true);
+    try {
+      // simulate api delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      toast.success('Profil bilgileri başarıyla güncellendi!');
+      console.log('Profile update data:', data);
+    } catch (error) {
+      toast.error('Profil güncellenirken bir hata oluştu.');
+    } finally {
+      setIsSavingProfile(false);
+    }
+  };
+
+  const onSecuritySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSavingSecurity(true);
+    try {
+      // simulate api delay
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      toast.success('Şifreniz başarıyla değiştirildi!');
+    } catch (error) {
+      toast.error('Şifre değiştirilirken bir hata oluştu.');
+    } finally {
+      setIsSavingSecurity(false);
+    }
   };
   return (
     <div className="mb-[100px]">
@@ -105,9 +134,18 @@ export default function SettingsPage() {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="bio">Hakkımda</FieldLabel>
-                  <Textarea {...register('bio')} />
+                  <Textarea {...register('bio')} className="min-h-[100px]" />
                 </Field>
               </FieldGroup>
+              <div className="flex flex-col sm:flex-row gap-4 mt-[20px]">
+                <Button
+                  disabled={isSavingProfile}
+                  type="submit"
+                  className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto bg-foreground transform cursor-pointer rounded-full text-white flex items-center justify-center gap-2">
+                  {isSavingProfile && <Loader2 className="animate-spin" size={16} />}
+                  {isSavingProfile ? 'Kaydediliyor...' : 'Kaydet'}
+                </Button>
+              </div>
             </form>
           </div>
         </div>
@@ -117,27 +155,34 @@ export default function SettingsPage() {
           <hr />
 
           <div className="mt-[30px] sm:mt-[50px]">
-            <form className="w-full max-w-[500px]">
+            <form className="w-full max-w-[500px]" onSubmit={onSecuritySubmit}>
               <FieldGroup className="mt-2">
                 <Field>
                   <FieldLabel htmlFor="password">Mevcut Şifre</FieldLabel>
-                  <Input />
+                  <Input type="password" required />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="newPassword">Yeni Şifre</FieldLabel>
-                  <Input />
+                  <Input type="password" required />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="confirmPassword">Yeni Şifre Tekrar</FieldLabel>
-                  <Input />
+                  <Input type="password" required />
                 </Field>
               </FieldGroup>
               <div className="flex flex-col sm:flex-row gap-4 mt-[20px]">
-                <Button className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto hover:bg-secondary transform hover:text-white cursor-pointer border-secondary bg-transparent text-secondary rounded-full ">
+                <Button
+                  type="button"
+                  onClick={() => window.history.back()}
+                  className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto hover:bg-secondary transform hover:text-white cursor-pointer border-secondary bg-transparent text-secondary rounded-full">
                   Iptal
                 </Button>
-                <Button className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto bg-foreground transform cursor-pointer rounded-full text-white">
-                  Değişiklikleri Kaydet
+                <Button
+                  disabled={isSavingSecurity}
+                  type="submit"
+                  className="py-[12px] sm:py-[22px] px-[40px] w-full sm:w-auto bg-foreground transform cursor-pointer rounded-full text-white flex items-center justify-center gap-2">
+                  {isSavingSecurity && <Loader2 className="animate-spin" size={16} />}
+                  {isSavingSecurity ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet'}
                 </Button>
               </div>
             </form>

@@ -21,7 +21,7 @@ export default function OfferPage() {
   const [targetInfo, setTargetInfo] = React.useState({ title: '', image: '' });
   const handleSubmitOffer = async () => {
     if (!selectedMyProductId) {
-      alert('Lütfen takas etmek için kendi ürününüzü seçin!');
+      toast.error('Lütfen takas etmek için kendi ürününüzü seçin!');
       return;
     }
 
@@ -48,7 +48,7 @@ export default function OfferPage() {
       // router.push('/');
     } catch (error) {
       console.error('Teklif gönderilirken hata oluştu:', error);
-      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+      toast.error('Bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setIsLoading(false);
     }

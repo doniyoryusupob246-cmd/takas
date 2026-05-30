@@ -77,7 +77,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
       Cookies.set('token', token, { expires: 7 });
       localStorage.setItem('user', JSON.stringify(user));
 
-      alert('Kayıt işlemi başarılı! Hoş geldin, ' + user.fullName);
+      toast.success('Kayıt işlemi başarılı! Hoş geldin, ' + user.fullName);
       console.log('Успешный ответ сервера:', response.data);
       route.push('/profile');
 
@@ -89,7 +89,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
           error.response?.data?.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
         toast.error(errorMessage);
       } else {
-        alert('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
+        toast.error('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
       }
     } finally {
       setIsLoading(false);
@@ -261,9 +261,16 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
 
             <Button
               disabled={isLoading}
-              className="gap-2 w-full sm:w-[180px] block mx-auto mt-5 bg-foreground cursor-pointer h-[45px]"
+              className="gap-2 w-full sm:w-[180px] flex items-center justify-center mx-auto mt-5 bg-foreground cursor-pointer h-[45px]"
               type="submit">
-              {isLoading ? 'Kayıt olunuyor...' : 'Kayıt Ol'}
+              {isLoading ? (
+                <>
+                  <Loader className="animate-spin" size={18} />
+                  Kayıt olunuyor...
+                </>
+              ) : (
+                'Kayıt Ol'
+              )}
             </Button>
 
             <p className="text-black text-[13px] sm:text-[14px] mt-5 text-center">

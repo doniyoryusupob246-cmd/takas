@@ -23,6 +23,8 @@ export interface Product {
   createdAt: string;
   ownerName: string;
   categoryId: number;
+  ownerId?: number;
+  userId?: number;
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -67,6 +69,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   productId={product.id}
                   campus={product.campus}
                   ownerName={product.ownerName}
+                  ownerId={product.ownerId || product.userId}
                   price={product.estimatedMaxPrice}
                 />
               </div>

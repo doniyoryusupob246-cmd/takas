@@ -15,7 +15,11 @@ interface Props {
   className?: string;
 }
 
-const links = ['Ana Sayfa', 'Hakkımızda', 'Nasıl Çalışır'];
+const links = [
+  { text: 'Ana Sayfa', href: '/' },
+  { text: 'Hakkımızda', href: '/hakkimizda' },
+  { text: 'Nasıl Çalışır', href: '/nasil-calisir' },
+];
 
 export const Nav: React.FC<Props> = ({ className }) => {
   const { user, checkAuth, isAuthenticated, logOut } = useAuthStore();
@@ -63,10 +67,10 @@ export const Nav: React.FC<Props> = ({ className }) => {
           <nav className="hidden md:flex items-center gap-5">
             {links.map((link) => (
               <Link
-                key={link}
+                key={link.text}
                 className="text-[#71717A] hover:text-secondary font-medium transition-all"
-                href={'/'}>
-                {link}
+                href={link.href}>
+                {link.text}
               </Link>
             ))}
           </nav>
@@ -80,22 +84,20 @@ export const Nav: React.FC<Props> = ({ className }) => {
                 <div className="flex gap-3">
                   {!isAuthenticated && (
                     <>
-                      {pathname === '/login' ||
-                        (pathname === '/' && (
-                          <Link href={'/register'}>
-                            <Button className="bg-foreground w-[120px] h-[35px] rounded-full cursor-pointer">
-                              Kayit ol
-                            </Button>
-                          </Link>
-                        ))}
-                      {pathname === '/register' ||
-                        (pathname === '/' && (
-                          <Link href={'/login'}>
-                            <Button className="bg-foreground w-[120px] h-[35px] rounded-full cursor-pointer">
-                              Giriş Yap
-                            </Button>
-                          </Link>
-                        ))}
+                      {(pathname === '/login' || pathname === '/') && (
+                        <Link href={'/register'}>
+                          <Button className="bg-foreground w-[120px] h-[35px] rounded-full cursor-pointer">
+                            Kayit ol
+                          </Button>
+                        </Link>
+                      )}
+                      {(pathname === '/register' || pathname === '/') && (
+                        <Link href={'/login'}>
+                          <Button className="bg-foreground w-[120px] h-[35px] rounded-full cursor-pointer">
+                            Giriş Yap
+                          </Button>
+                        </Link>
+                      )}
                     </>
                   )}
                 </div>
@@ -128,10 +130,10 @@ export const Nav: React.FC<Props> = ({ className }) => {
           <nav className="flex flex-col gap-4 mb-6">
             {links.map((link) => (
               <Link
-                key={link}
+                key={link.text}
                 className="text-[#71717A] hover:text-secondary text-lg font-medium transition-all py-2 border-b border-gray-50"
-                href={'/'}>
-                {link}
+                href={link.href}>
+                {link.text}
               </Link>
             ))}
           </nav>

@@ -177,7 +177,11 @@ export function OffersTabs() {
                       disabled={actionLoading === offer.id}
                       onClick={() => handleOfferAction(offer.id, 'reject')}
                       className="flex w-[250px] bg-transparent justify-center items-center text-red-500 hover:bg-red-50 hover:text-red-600 border border-red-500 rounded-xl transition-all">
-                      <CircleX size={18} className="mr-2" />
+                      {actionLoading === offer.id ? (
+                        <Loader2 className="animate-spin mr-2" size={18} />
+                      ) : (
+                        <CircleX size={18} className="mr-2" />
+                      )}
                       Reddet
                     </Button>
                   </div>

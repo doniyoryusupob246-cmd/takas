@@ -2,24 +2,90 @@ import ProductCard from '@/components/shared/product-card';
 import axios from 'axios';
 import React from 'react';
 import { Product } from '@/app/products/[id]/page';
+import { cookies } from 'next/headers';
 
-export default async function ProductGrid() {
+interface Props {
+  search?: string;
+  category?: string;
+}
+
+export default async function ProductGrid({ search, category }: Props) {
   let products: Product[] = [];
+  let loggedInUserId: number | null = null;
+  let loggedInUserFullName = '';
+
+  try {
+    // Read auth token from cookies
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value;
+
+    if (token) {
+      const meRes = await axios.get(
+        'https://kampustakas-backend-production.up.railway.app/api/auth/me',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      loggedInUserId = meRes.data?.data?.id || null;
+      loggedInUserFullName = meRes.data?.data?.fullName || '';
+    }
+  } catch (err) {
+    console.error('Error fetching me in ProductGrid:', err);
+  }
+
   try {
     const res = await axios.get(
       'https://kampustakas-backend-production.up.railway.app/api/products',
     );
-    products = res.data.data;
+    products = res.data.data || [];
+
+    // Filter out user's own products
+    if (loggedInUserId || loggedInUserFullName) {
+      products = products.filter((product) => {
+        const ownerId = product.ownerId || product.userId;
+        if (ownerId && loggedInUserId) {
+          return ownerId !== loggedInUserId;
+        }
+        // Fallback to name if ID is not available
+        return product.ownerName !== loggedInUserFullName;
+      });
+    }
+
+    // Filter by Category
+    if (category && category !== 'Tümü') {
+      products = products.filter(
+        (product) => product.categoryName?.toLowerCase() === category.toLowerCase(),
+      );
+    }
+
+    // Filter by Search Query
+    if (search) {
+      const q = search.toLowerCase();
+      products = products.filter(
+        (product) =>
+          product.title?.toLowerCase().includes(q) ||
+          product.description?.toLowerCase().includes(q),
+      );
+    }
   } catch (error: any) {
-    console.error('Ошибка загрузки профиля', error);
+    console.error('Error fetching products:', error);
   }
+
   return (
     <section className="px-4 pb-16 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} {...product} />
-        ))}
-      </div>
+      {products.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-gray-500 text-lg">Aradığınız kriterlere uygun ürün bulunamadı.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} {...product} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

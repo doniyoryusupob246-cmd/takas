@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
-import { Eye, EyeClosed, Lock, LogIn, Mail } from 'lucide-react';
+import { Eye, EyeClosed, Lock, LogIn, Mail, Loader2 } from 'lucide-react';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -162,9 +162,16 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
 
           <Button
             disabled={isLoading}
-            className="mx-auto block cursor-pointer hover:bg-foreground/70 bg-foreground text-white w-full sm:w-[150px] h-[42px] sm:h-[40px] rounded-sm mt-5"
+            className="mx-auto flex items-center justify-center gap-2 cursor-pointer hover:bg-foreground/70 bg-foreground text-white w-full sm:w-[150px] h-[42px] sm:h-[40px] rounded-sm mt-5"
             type="submit">
-            {isLoading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
+            {isLoading ? (
+              <>
+                <Loader2 className="animate-spin" size={18} />
+                Giriş yapılıyor...
+              </>
+            ) : (
+              'Giriş Yap'
+            )}
           </Button>
 
           <p className="text-[13px] sm:text-[14px] text-gray-500 mt-3 text-center">

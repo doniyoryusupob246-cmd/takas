@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { Package2 } from 'lucide-react';
+import { Package2, Plus } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { Button } from '../ui/button';
 interface Props {
   className?: string;
   selectedId: number | null;
@@ -53,8 +55,14 @@ export const OfferSelectProduct: React.FC<Props> = ({ onSelect, selectedId, clas
         {isLoading ? (
           <p className="text-gray-500 animate-pulse">Ürünleriniz yükleniyor...</p>
         ) : myProduct.length === 0 ? (
-          <div className="p-4 bg-white rounded-xl text-center border">
-            <p className="text-gray-500">Henüz hiç ürün eklemediniz.</p>
+          <div className="p-6 bg-white rounded-xl text-center border flex flex-col items-center gap-3">
+            <p className="text-gray-500 text-sm">Henüz hiç ürün eklemediniz.</p>
+            <Link href="/new-product" target="_blank">
+              <Button size="sm" className="bg-secondary text-white hover:bg-secondary/80 flex items-center gap-1.5 rounded-lg h-9 px-4 cursor-pointer">
+                <Plus size={16} />
+                Yeni Ürün Ekle
+              </Button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
