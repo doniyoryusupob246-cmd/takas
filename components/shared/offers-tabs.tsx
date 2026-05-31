@@ -39,16 +39,22 @@ export function OffersTabs() {
     try {
       setIsLoading(true);
       const [incomingRes, outgoingRes] = await Promise.all([
-        axios.get('https://kampustakas-backend-production.up.railway.app/api/offers/incoming', {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        axios.get(
+          'https://kampustakas-backend-production-26c9.up.railway.app/api/offers/incoming',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        }),
-        axios.get('https://kampustakas-backend-production.up.railway.app/api/offers/outgoing', {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        ),
+        axios.get(
+          'https://kampustakas-backend-production-26c9.up.railway.app/api/offers/outgoing',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        }),
+        ),
       ]);
 
       setIncomingOffers(incomingRes.data.data || []);
@@ -66,13 +72,13 @@ export function OffersTabs() {
     fetchOffers();
   }, []);
 
-  // Обработка кнопок (Accept, Reject, Cancel)
+  // Обработка кнопок (Принять, Отклонить, Отменить)
   const handleOfferAction = async (offerId: number, action: 'accept' | 'reject' | 'cancel') => {
     const token = Cookies.get('token');
     try {
       setActionLoading(offerId);
       await axios.post(
-        `https://kampustakas-backend-production.up.railway.app/api/offers/${offerId}/${action}`,
+        `https://kampustakas-backend-production-26c9.up.railway.app/api/offers/${offerId}/${action}`,
         {},
         {
           headers: {

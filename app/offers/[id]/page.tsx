@@ -36,7 +36,7 @@ export default function OfferPage() {
       };
 
       await axios.post(
-        'https://kampustakas-backend-production.up.railway.app/api/offers',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/offers',
         payload,
         {
           headers: {

@@ -50,7 +50,7 @@ export default async function RelatedProducts({ categoryId, currentProductId }: 
 
   try {
     const res = await axios.get(
-      `https://kampustakas-backend-production.up.railway.app/api/products`,
+      `https://kampustakas-backend-production-26c9.up.railway.app/api/products`,
     );
     const allProducts = res.data.data || [];
 

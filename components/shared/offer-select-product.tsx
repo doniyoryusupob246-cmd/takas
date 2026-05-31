@@ -27,7 +27,7 @@ export const OfferSelectProduct: React.FC<Props> = ({ onSelect, selectedId, clas
     const fetchMyProduct = async () => {
       try {
         const res = await axios.get(
-          `https://kampustakas-backend-production.up.railway.app/api/products/my`,
+          `https://kampustakas-backend-production-26c9.up.railway.app/api/products/my`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

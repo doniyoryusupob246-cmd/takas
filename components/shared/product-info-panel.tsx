@@ -1,9 +1,13 @@
 'use client';
-import { MessageSquare, ShieldCheck, ArrowRightLeft, UserPen } from 'lucide-react';
+import { MessageSquare, ShieldCheck, ArrowRightLeft, UserPen, Trash2 } from 'lucide-react';
 import SellerCard from './seller-card';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface Props {
   productId: number;
@@ -15,15 +19,33 @@ interface Props {
 
 export default function ProductInfoPanel({ productId, campus, price, ownerName, ownerId }: Props) {
   const { user, isAuthenticated } = useAuthStore();
+  const isOwnProduct =
+    isAuthenticated && user && ((ownerId && user.id === ownerId) || user.fullName === ownerName);
+  const router = useRouter();
 
-  const isOwnProduct = isAuthenticated && user && (
-    (ownerId && user.id === ownerId) ||
-    (user.fullName === ownerName)
-  );
+  const deleteProduct = async () => {
+    const token = Cookies.get('token');
+    try {
+      const res = await axios.delete(
+        `https://kampustakas-backend-production-26c9.up.railway.app/api/products/${productId}`,
 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      router.push('/profile');
+      router.refresh();
+      toast.success('Ürün silindi!');
+    } catch (error) {
+      toast.error('Hata tekrar deneyin!');
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col gap-6 h-full">
-      {/* Main Info Card */}
+      {/* Главная карточка с информацией */}
       <div className="bg-white rounded-[1.5rem] p-7 shadow-sm border border-gray-100">
         <div className="mb-6">
           <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-2">
@@ -42,6 +64,12 @@ export default function ProductInfoPanel({ productId, campus, price, ownerName, 
                   Profil Ayarları
                 </button>
               </Link>
+              <button
+                onClick={deleteProduct}
+                className="w-full mt-[10px] bg-red-600 hover:bg-red-400 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm">
+                <Trash2 className="w-4 h-4" />
+                Ürünü sil
+              </button>
             </div>
           ) : (
             <>
@@ -51,10 +79,10 @@ export default function ProductInfoPanel({ productId, campus, price, ownerName, 
                   Takas Teklifi Gönder
                 </button>
               </Link>
-              <button className="w-full bg-white hover:bg-gray-50 text-green-700 font-medium py-3.5 rounded-xl transition-colors border-2 border-green-700/20 flex items-center justify-center gap-2.5">
+              {/* <button className="w-full bg-white hover:bg-gray-50 text-green-700 font-medium py-3.5 rounded-xl transition-colors border-2 border-green-700/20 flex items-center justify-center gap-2.5">
                 <MessageSquare className="w-5 h-5" />
                 Mesaj Gönder
-              </button>
+              </button> */}
             </>
           )}
         </div>
@@ -62,7 +90,7 @@ export default function ProductInfoPanel({ productId, campus, price, ownerName, 
         <SellerCard campus={campus} ownerName={ownerName} />
       </div>
 
-      {/* Safety Tip Card */}
+      {/* Карточка совета по безопасности */}
       <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100 flex gap-4">
         <div className="shrink-0 mt-0.5">
           <ShieldCheck className="w-6 h-6 text-green-700" />

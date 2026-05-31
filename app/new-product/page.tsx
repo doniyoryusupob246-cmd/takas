@@ -51,7 +51,7 @@ export default function NewProduct() {
   React.useEffect(() => {
     const fetchCategories = async () => {
       const res = await axios.get(
-        'https://kampustakas-backend-production.up.railway.app/api/categories',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/categories',
       );
       setCategories(res.data.data);
     };
@@ -108,7 +108,7 @@ export default function NewProduct() {
         images: uploadImages,
       };
       const res = await axios.post(
-        'https://kampustakas-backend-production.up.railway.app/api/products',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/products',
         formData,
         {
           headers: {

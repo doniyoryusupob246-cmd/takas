@@ -9,7 +9,7 @@ export const fetchUserProfile = async () => {
   }
 
   const response = await axios.get(
-    'https://kampustakas-backend-production.up.railway.app/api/auth/me',
+    'https://kampustakas-backend-production-26c9.up.railway.app/api/auth/me',
     {
       headers: {
         Authorization: `Bearer ${token}`,

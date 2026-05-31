@@ -34,12 +34,35 @@ export default function ProfilePage() {
   const [loading, setLoading] = React.useState(true);
   const [products, setProducts] = React.useState<Product[]>([]);
 
+  // Умная функция для расчета времени на турецком
+  const calculateMembershipDuration = (dateString?: string) => {
+    if (!dateString) return '-';
+
+    const createdAt = new Date(dateString);
+    const now = new Date();
+
+    // Разница в миллисекундах
+    const diffInMs = now.getTime() - createdAt.getTime();
+    // Переводим в дни
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) return 'Yeni'; // Сегодня зарегистрировался
+    if (diffInDays < 30) return `${diffInDays} gün`; // До месяца пишем в днях
+    if (diffInDays < 365) {
+      const months = Math.floor(diffInDays / 30);
+      return `${months} ay`; // До года пишем в месяцах
+    }
+
+    const years = Math.floor(diffInDays / 365);
+    return `${years}y+`; // Больше года пишем в годах
+  };
+
   React.useEffect(() => {
     const loadAllData = async () => {
       try {
         const token = Cookies.get('token');
         const [productsRes, profileRes] = await Promise.all([
-          axios.get('https://kampustakas-backend-production.up.railway.app/api/products/my', {
+          axios.get('https://kampustakas-backend-production-26c9.up.railway.app/api/products/my', {
             headers: { Authorization: `Bearer ${token}` },
           }),
           fetchUserProfile(),
@@ -71,7 +94,10 @@ export default function ProfilePage() {
           <div className="mt-6 md:mt-[40px] flex justify-center w-full md:w-auto">
             <Image
               className="rounded-2xl border w-full max-w-[280px] sm:max-w-[320px] h-auto object-cover"
-              src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&w=740&q=80"
+              src={
+                userData?.avatarUrl ||
+                'https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&w=740&q=80'
+              }
               width={320}
               height={320}
               alt="Profile"
@@ -80,28 +106,29 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center md:items-start text-center md:text-left mt-6 md:mt-[40px] max-w-[500px]">
             <div className="flex gap-2 justify-center md:justify-start">
               <Badge className="text-white uppercase" variant={'secondary'}>
-                Mühendislik Fakültesi
+                {userData?.campus}
               </Badge>
               <Badge>Aktif Üye</Badge>
             </div>
-            <h2 className="text-black text-[30px] md:text-[34px] font-bold mt-2">{userData?.fullName}</h2>
-            <p className="text-[15px] text-gray-500 w-full max-w-[450px] mt-2">
-              İstanbul Teknik Üniversitesi 3. sınıf öğrencisiyim. Artık ihtiyacım olmayan akademik
-              kaynakları ve teknolojik aksesuarları paylaşıyorum.
-            </p>
+            <h2 className="text-black text-[30px] md:text-[34px] font-bold mt-2">
+              {userData?.fullName}
+            </h2>
+            <p className="text-[15px] text-gray-500 w-full max-w-[450px] mt-2">{userData?.bio}</p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start items-center mt-[15px] text-sm">
               <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
                 <Mail size={18} />
                 <span>{userData?.email}</span>
               </Link>
-              <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
+              <Link
+                className="flex items-center gap-2 hover:text-secondary transition"
+                href={`tel:${userData?.phone}`}>
                 <Phone size={18} />
-                <span>+90 555 555 55 55</span>
+                <span>{userData?.phone}</span>
               </Link>
-              <Link className="flex items-center gap-2 hover:text-secondary transition" href={'/'}>
+              <div className="flex items-center gap-2 hover:text-secondary transition">
                 <MapPin size={18} />
-                <span>Bilecil/Merkez</span>
-              </Link>
+                <span>{userData?.campus}</span>
+              </div>
             </div>
             <Link href={'/settings'} className="mt-[20px] block cursor-pointer">
               <Button className="bg-secondary flex items-center gap-3 cursor-pointer">
@@ -119,24 +146,26 @@ export default function ProfilePage() {
               <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">İlan Sayısı</p>
             </div>
           </div>
-          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
+          {/* <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">4.9</h2>
               <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">başarılı takas</p>
             </div>
-          </div>
+          </div> */}
           <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
-              <h2 className="text-[20px] font-bold">2y+</h2>
+              <h2 className="text-[20px] font-bold">
+                {calculateMembershipDuration(userData?.createdAt)}
+              </h2>
               <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">Üyelik Süresi</p>
             </div>
           </div>
-          <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
+          {/* <div className="h-[100px] rounded-xl flex items-center justify-center bg-[#f4f2f1] p-4">
             <div className="text-center">
               <h2 className="text-[20px] font-bold">8</h2>
               <p className="text-[#515151] uppercase text-[12px] md:text-[14px]">İlan Sayısı</p>
             </div>
-          </div>
+          </div> */}
         </div>
         <h2 className="text-[27px] text-black font-bold mt-[50px] mb-[30px]">Paylaşılan Ürünler</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -144,7 +173,9 @@ export default function ProfilePage() {
             <div className="hover:bg-white hover:border-green-600 hover:shadow-md cursor-pointer transition-all flex items-center justify-center w-full min-h-[350px] md:h-full bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-5 flex-grow">
               <div className="flex flex-col items-center text-center">
                 <Plus size={30} className="text-gray-400" />
-                <p className="text-center text-sm font-semibold text-gray-500 mt-2">Yeni ürün ekle</p>
+                <p className="text-center text-sm font-semibold text-gray-500 mt-2">
+                  Yeni ürün ekle
+                </p>
               </div>
             </div>
           </Link>

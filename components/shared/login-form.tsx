@@ -54,7 +54,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
         password: data.password,
       };
       const response = await axios.post(
-        'https://kampustakas-backend-production.up.railway.app/api/auth/login',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/auth/login',
         formData,
       );
       const token = response.data.data.token;
@@ -121,9 +121,9 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
               <div className="flex items-center justify-between">
                 <FieldLabel htmlFor="password">Şifre</FieldLabel>
 
-                <Link className="text-[11px] sm:text-[12px] text-gray-600" href="">
+                {/* <Link className="text-[11px] sm:text-[12px] text-gray-600" href="">
                   Şifremi unuttum?
-                </Link>
+                </Link> */}
               </div>
 
               <div className="relative group">

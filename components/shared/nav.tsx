@@ -63,7 +63,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
             <Image src="/logo.png" width={80} height={80} alt="Logo" className="w-[70px] h-auto" />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Навигация на десктопе */}
           <nav className="hidden md:flex items-center gap-5">
             {links.map((link) => (
               <Link
@@ -76,7 +76,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
           </nav>
 
           <div className="flex gap-3 items-center">
-            {/* Desktop Auth Section */}
+            {/* Блок авторизации на десктопе */}
             <div className="hidden md:flex gap-3 items-center">
               {!isMounted ? (
                 <div className="w-[120px] h-[35px]"></div>
@@ -108,7 +108,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
               )}
             </div>
 
-            {/* Mobile Actions */}
+            {/* Мобильные действия */}
             <div className="flex md:hidden items-center gap-2">
               {isMounted && isAuthenticated && (
                 <MenuAvatar username={user?.fullName || 'Kullanıcı'} handleLogOut={handleLogout} />
@@ -124,7 +124,7 @@ export const Nav: React.FC<Props> = ({ className }) => {
         </div>
       </Container>
 
-      {/* Mobile Menu Panel */}
+      {/* Панель мобильного меню */}
       {isMobileMenuOpen && (
         <div className="absolute top-[60px] left-0 w-full bg-white shadow-xl border-t border-gray-100 py-6 px-6 z-40 md:hidden">
           <nav className="flex flex-col gap-4 mb-6">

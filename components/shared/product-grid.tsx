@@ -15,13 +15,13 @@ export default async function ProductGrid({ search, category }: Props) {
   let loggedInUserFullName = '';
 
   try {
-    // Read auth token from cookies
+    // Считывание токена авторизации из cookies
     const cookieStore = await cookies();
     const token = cookieStore.get('token')?.value;
 
     if (token) {
       const meRes = await axios.get(
-        'https://kampustakas-backend-production.up.railway.app/api/auth/me',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/auth/me',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -37,30 +37,30 @@ export default async function ProductGrid({ search, category }: Props) {
 
   try {
     const res = await axios.get(
-      'https://kampustakas-backend-production.up.railway.app/api/products',
+      'https://kampustakas-backend-production-26c9.up.railway.app/api/products',
     );
     products = res.data.data || [];
 
-    // Filter out user's own products
+    // Исключение собственных товаров текущего пользователя
     if (loggedInUserId || loggedInUserFullName) {
       products = products.filter((product) => {
         const ownerId = product.ownerId || product.userId;
         if (ownerId && loggedInUserId) {
           return ownerId !== loggedInUserId;
         }
-        // Fallback to name if ID is not available
+        // Откат на имя, если ID не предоставлен бэкендом
         return product.ownerName !== loggedInUserFullName;
       });
     }
 
-    // Filter by Category
+    // Фильтрация по категории
     if (category && category !== 'Tümü') {
       products = products.filter(
         (product) => product.categoryName?.toLowerCase() === category.toLowerCase(),
       );
     }
 
-    // Filter by Search Query
+    // Фильтрация по поисковому запросу
     if (search) {
       const q = search.toLowerCase();
       products = products.filter(

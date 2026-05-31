@@ -27,7 +27,7 @@ export const OfferProduct: React.FC<Props> = ({ onProductLoaded, targetProduct, 
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `https://kampustakas-backend-production.up.railway.app/api/products/${targetProduct}`,
+          `https://kampustakas-backend-production-26c9.up.railway.app/api/products/${targetProduct}`,
         );
 
         const data = res.data.data;

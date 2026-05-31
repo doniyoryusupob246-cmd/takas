@@ -67,7 +67,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        'https://kampustakas-backend-production.up.railway.app/api/auth/register',
+        'https://kampustakas-backend-production-26c9.up.railway.app/api/auth/register',
         data,
       );
 
@@ -79,9 +79,8 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
 
       toast.success('Kayıt işlemi başarılı! Hoş geldin, ' + user.fullName);
       console.log('Успешный ответ сервера:', response.data);
-      route.push('/profile');
 
-      route.refresh();
+      window.location.replace('/profile');
     } catch (error) {
       console.error('Ошибка при регистрации:', error);
       if (axios.isAxiosError(error)) {
