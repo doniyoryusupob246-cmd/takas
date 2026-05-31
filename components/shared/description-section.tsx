@@ -17,24 +17,24 @@ export default function DescriptionSection({ description }: Props) {
           </span>
           <span className="text-sm font-semibold text-green-700">Yeni Gibi</span>
         </div>
-        <div className="bg-white border border-gray-100 rounded-xl py-5 px-4 flex flex-col items-center justify-center text-center shadow-sm">
+        {/* <div className="bg-white border border-gray-100 rounded-xl py-5 px-4 flex flex-col items-center justify-center text-center shadow-sm">
           <span className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-1.5">
             GARANTİ
           </span>
           <span className="text-sm font-semibold text-gray-900">14 Ay Kaldı</span>
-        </div>
+        </div> */}
         <div className="bg-white border border-gray-100 rounded-xl py-5 px-4 flex flex-col items-center justify-center text-center shadow-sm">
           <span className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-1.5">
             TAKAS
           </span>
           <span className="text-sm font-semibold text-gray-900">Mümkün</span>
         </div>
-        <div className="bg-white border border-gray-100 rounded-xl py-5 px-4 flex flex-col items-center justify-center text-center shadow-sm">
+        {/* <div className="bg-white border border-gray-100 rounded-xl py-5 px-4 flex flex-col items-center justify-center text-center shadow-sm">
           <span className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-1.5">
             KARGO
           </span>
           <span className="text-sm font-semibold text-gray-900">Elden</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
